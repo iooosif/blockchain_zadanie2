@@ -1,5 +1,9 @@
 # blockchain_zadanie2
 Launch instruction:
+reinstall project dependencies
+rm -rf node_modules package-lock.json
+npm install
+
 Compile the contract
 npx hardhat compile
 
