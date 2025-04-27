@@ -20,4 +20,4 @@ Update exchange_address and token_address in exchange.js
 
 open index.html in browser.
 
-At the moment, the basic setup has been done, creating your own token, setting up a simple exchange, functions addLiquidity(), removeLiquidity, removeAllLiquidity(), swapTokensForETH, swapETHForTokens() in solidity and js.
+At the moment, the basic setup has been done, creating your own token, setting up a simple exchange, functions addLiquidity(), removeLiquidity, removeAllLiquidity(), swapTokensForETH, swapETHForTokens() in solidity and js. Implemented actions with deviation from the course, passed sanity check.
