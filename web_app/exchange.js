@@ -642,8 +642,8 @@ async function getPoolState() {
 /*** ADD LIQUIDITY ***/
 async function addLiquidity(amountEth, maxSlippagePct) {
     try {
-        console.log("Starting addLiquidity with amountEth:", amountEth);
-        // Проверяем баланс токенов
+        console.log("Starting addLiquidity with amountEth (in wei):", amountEth.toString());
+        console.log("Starting addLiquidity with amountEth (in ETH):", ethers.utils.formatEther(amountEth));        // Проверяем баланс токенов
         const tokenBalance = await token_contract.balanceOf(defaultAccount);
         console.log("Token balance:", tokenBalance.toString(), token_symbol);
         // Получаем текущие резервы
@@ -670,13 +670,18 @@ async function addLiquidity(amountEth, maxSlippagePct) {
         console.log("Required token amount (rounded):", tokenAmount, token_symbol);
 
         // Выполняем approve
+        // Проверка approve
         const allowance = await token_contract.allowance(defaultAccount, exchange_address);
         console.log("Allowance before approve:", allowance.toString(), token_symbol);
-        const txApprove = await token_contract.connect(provider.getSigner(defaultAccount)).approve(exchange_address, tokenAmount);
-        await txApprove.wait();
-        const newAllowance = await token_contract.allowance(defaultAccount, exchange_address);
-        console.log("Allowance after approve:", newAllowance.toString(), token_symbol);
-
+        if (Number(allowance) < tokenAmount) {
+            const txApprove = await token_contract.connect(provider.getSigner(defaultAccount)).approve(exchange_address, tokenAmount);
+            await txApprove.wait();
+            const newAllowance = await token_contract.allowance(defaultAccount, exchange_address);
+            console.log("Allowance after approve:", newAllowance.toString(), token_symbol);
+            if (Number(newAllowance) < tokenAmount) {
+                throw new Error("Failed to set allowance for tokens");
+            }
+        }
         // Вызываем addLiquidity с рассчитанными параметрами
         const tx = await exchange_contract.connect(provider.getSigner(defaultAccount)).addLiquidity(
             maxExchangeRate,
@@ -685,6 +690,8 @@ async function addLiquidity(amountEth, maxSlippagePct) {
         );
         await tx.wait();
         console.log("Liquidity added successfully:", amountEth, "ETH");
+        const newEthBalance = await provider.getBalance(defaultAccount);
+        console.log("After adding liquidity - ETH balance:", ethers.utils.formatEther(newEthBalance), "ETH");
     } catch (err) {
         console.error("Error adding liquidity:", err);
         throw err;
@@ -1076,5 +1083,8 @@ const sanityCheck = async function() {
 // If you run into sanityCheck() errors due to init() not finishing, please extend the sleep time.
 
  setTimeout(function () {
-   sanityCheck();
+
+
+    sanityCheck();
+
  }, 3000);

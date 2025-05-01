@@ -74,10 +74,12 @@
         "TokenExchange"
       ]
     },
-    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/contracts/token.sol": {
-      "lastModificationDate": 1746087817322,
-      "contentHash": "6db847806e95ba41a9996f5b1de2f577",
-      "sourceName": "contracts/token.sol",
+
+    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/contracts/exchange.sol": {
+      "lastModificationDate": 1746003352596,
+      "contentHash": "1d7969055a0d7d2c27776cd4bb10342f",
+      "sourceName": "contracts/exchange.sol",
+
       "solcConfig": {
         "version": "0.8.17",
         "settings": {
