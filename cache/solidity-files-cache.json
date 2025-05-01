@@ -1,43 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/Iosif/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1742992072034,
-      "contentHash": "681c532e816169606d13a5fe8b475074",
-      "sourceName": "hardhat/console.sol",
-      "solcConfig": {
-        "version": "0.8.17",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.22 <0.9.0"
-      ],
-      "artifacts": [
-        "console"
-      ]
-    },
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/contracts/Lock.sol": {
-      "lastModificationDate": 1745435867746,
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/contracts/Lock.sol": {
+      "lastModificationDate": 1746087817322,
       "contentHash": "ae66265769cc28ebdaa34881df95bc5e",
       "sourceName": "contracts/Lock.sol",
       "solcConfig": {
@@ -71,9 +36,9 @@
         "Lock"
       ]
     },
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/contracts/exchange.sol": {
-      "lastModificationDate": 1746003352596,
-      "contentHash": "1d7969055a0d7d2c27776cd4bb10342f",
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/contracts/exchange.sol": {
+      "lastModificationDate": 1746130569604,
+      "contentHash": "eb7130e75be8c4a504ce5d8525e1a58a",
       "sourceName": "contracts/exchange.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -109,10 +74,12 @@
         "TokenExchange"
       ]
     },
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/contracts/token.sol": {
-      "lastModificationDate": 1745484369786,
-      "contentHash": "6db847806e95ba41a9996f5b1de2f577",
-      "sourceName": "contracts/token.sol",
+
+    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/contracts/exchange.sol": {
+      "lastModificationDate": 1746003352596,
+      "contentHash": "1d7969055a0d7d2c27776cd4bb10342f",
+      "sourceName": "contracts/exchange.sol",
+
       "solcConfig": {
         "version": "0.8.17",
         "settings": {
@@ -147,8 +114,43 @@
         "Token"
       ]
     },
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1745484208047,
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1746087912887,
+      "contentHash": "681c532e816169606d13a5fe8b475074",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1746090942028,
       "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
@@ -184,8 +186,8 @@
         "Ownable"
       ]
     },
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
-      "lastModificationDate": 1745484208933,
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+      "lastModificationDate": 1746090942067,
       "contentHash": "3ae5166c6827a9cf1a7a462d1632b464",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
@@ -223,8 +225,8 @@
         "ERC20"
       ]
     },
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1745484208053,
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1746090942103,
       "contentHash": "f07feb4a44b1a4872370da5aa70e8e46",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -258,8 +260,8 @@
         "Context"
       ]
     },
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-      "lastModificationDate": 1745484208932,
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1746090942067,
       "contentHash": "df36f7051335cd1e748b1b6463b7fdd3",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
@@ -293,8 +295,8 @@
         "IERC20"
       ]
     },
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
-      "lastModificationDate": 1745484209888,
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+      "lastModificationDate": 1746090942069,
       "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
       "solcConfig": {
@@ -330,8 +332,8 @@
         "IERC20Metadata"
       ]
     },
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/contracts/interfaces/IERC20.sol": {
-      "lastModificationDate": 1745435867775,
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/contracts/interfaces/IERC20.sol": {
+      "lastModificationDate": 1746087817322,
       "contentHash": "302d9755e46bc69d7058b0cbe7185e37",
       "sourceName": "contracts/interfaces/IERC20.sol",
       "solcConfig": {

@@ -16,10 +16,14 @@ contract TokenExchange is Ownable {
     uint private token_reserves = 0;
     uint private eth_reserves = 0;
 
-    mapping(address => uint) private lps; 
+    mapping(address => uint) private lps;
+
+    mapping(address => uint) private lp_shares;
+    uint shares ;
      
     // Needed for looping through the keys of the lps mapping
-    address[] private lp_providers;                     
+    address[] private lp_providers;         
+
 
     // liquidity rewards
     uint private swap_fee_numerator = 3;                
@@ -77,6 +81,7 @@ contract TokenExchange is Ownable {
     /* ========================= Liquidity Provider Functions ========================= */
 
     // Function addLiquidity: Adds liquidity given a supply of ETH (sent to the contract as msg.value in ETH).
+
     function addLiquidity(uint max_exchange_rate, uint min_exchange_rate) external payable {
     console.log("Sender ETH balance at start (wei):", msg.sender.balance);
     console.log("addLiquidity: msg.value (ETH in wei) =", msg.value);
@@ -111,6 +116,17 @@ contract TokenExchange is Ownable {
         lp_providers.push(msg.sender);
     }
     lps[msg.sender] += msg.value;
+    uint provider_share = 0;
+    if(shares == 0)
+    {
+        shares = eth_reserves + msg.value;
+        provider_share = msg.value;
+    }else
+    {
+        provider_share = (msg.value*shares)/eth_reserves;
+        shares+=provider_share;
+    }
+    lp_shares[msg.sender]+= provider_share;
     console.log("addLiquidity: completed successfully");
     console.log("Sender ETH balance at end (wei):", msg.sender.balance);
 }
@@ -132,19 +148,31 @@ contract TokenExchange is Ownable {
         uint amountTokens = (amountETH * token_reserves) / eth_reserves;
         require(amountTokens <= token_reserves - 1, "Not enough tokens in reserves");
 
+
+        uint share_correction = (amountETH*shares)/eth_reserves;
+        shares -= share_correction;
+        lp_shares[msg.sender] -= share_correction;
         // Update reserves
         token_reserves -= amountTokens;
         eth_reserves -= amountETH;
+
+        
+
         console.log("k before:", k);
         k = token_reserves * eth_reserves;
         console.log("k after:", k);
 
         // Update liquidity provider's contribution
         lps[msg.sender] -= amountETH;
+
+        
+
+
         if (lps[msg.sender] == 0) {
             for (uint i = 0; i < lp_providers.length; i++) {
                 if (lp_providers[i] == msg.sender) {
                     removeLP(i);
+                    
                     break;
                 }
             }
@@ -184,10 +212,13 @@ contract TokenExchange is Ownable {
         for (uint i = 0; i < lp_providers.length; i++) {
             if (lp_providers[i] == msg.sender) {
                 removeLP(i);
+                
                 break;
             }
         }
         lps[msg.sender] = 0;
+        shares -= lp_shares[msg.sender]; 
+        lp_shares[msg.sender] = 0;
 
         // Transfer tokens and ETH back to sender
         token.transfer(msg.sender, amountTokens);
@@ -216,6 +247,7 @@ contract TokenExchange is Ownable {
         // Apply swap fee
         uint fee = (amountETH * swap_fee_numerator) / swap_fee_denominator;
         amountETH -= fee;
+        console.log("Fee:", fee);
 
         // Проверка текущего курса обмена (ETH за 1 PRMT)
         uint current_exchange_rate = (amountETH * 1000) / amountTokens; // Умножаем на 1000 для точности
@@ -227,6 +259,7 @@ contract TokenExchange is Ownable {
         // Update reserves
         token_reserves += amountTokens;
         eth_reserves -= amountETH;
+        eth_reserves+= fee;
         console.log("k before:", k);
         k = token_reserves * eth_reserves;
         console.log("k after:", k);
@@ -257,6 +290,7 @@ contract TokenExchange is Ownable {
         // Update reserves
         token_reserves -= amountTokens;
         eth_reserves += msg.value;
+        eth_reserves += fee;
         console.log("k before:", k);
         k = token_reserves * eth_reserves;
         console.log("k after:", k);
