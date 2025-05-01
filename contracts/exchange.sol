@@ -77,42 +77,43 @@ contract TokenExchange is Ownable {
     /* ========================= Liquidity Provider Functions ========================= */
 
     // Function addLiquidity: Adds liquidity given a supply of ETH (sent to the contract as msg.value in ETH).
-    function addLiquidity(uint max_exchange_rate, uint min_exchange_rate)
-        external
-        payable
-    {
-        console.log("addLiquidity: msg.value (ETH) =", msg.value);
-        require(msg.value > 0, "Need ETH to add liquidity");
-        console.log("addLiquidity: token_reserves (PRMT) =", token_reserves, "eth_reserves (ETH) =", eth_reserves);
-        require(token_reserves > 0 && eth_reserves > 0, "Pool not initialized");
+    function addLiquidity(uint max_exchange_rate, uint min_exchange_rate) external payable {
+    console.log("Sender ETH balance at start (wei):", msg.sender.balance);
+    console.log("addLiquidity: msg.value (ETH in wei) =", msg.value);
+    require(msg.value > 0, "Need ETH to add liquidity");
+    console.log("addLiquidity: token_reserves (PRMT) =", token_reserves, "eth_reserves (ETH) =", eth_reserves);
+    require(token_reserves > 0 && eth_reserves > 0, "Pool not initialized");
 
-        // Проверка текущего курса обмена (PRMT за 1 ETH)
-        uint current_exchange_rate = (token_reserves * 1000) / eth_reserves; // Умножаем на 1000 для точности
-        require(current_exchange_rate <= max_exchange_rate, "Slippage too high: exchange rate above maximum");
-        require(current_exchange_rate >= min_exchange_rate, "Slippage too low: exchange rate below minimum");
+    uint current_exchange_rate = (token_reserves * 1000) / eth_reserves;
+    console.log("addLiquidity: current_exchange_rate (PRMT per ETH, scaled by 1000) =", current_exchange_rate);
+    console.log("addLiquidity: max_exchange_rate =", max_exchange_rate);
+    console.log("addLiquidity: min_exchange_rate =", min_exchange_rate);
+    require(current_exchange_rate <= max_exchange_rate, "Slippage too high: exchange rate above maximum");
+    require(current_exchange_rate >= min_exchange_rate, "Slippage too low: exchange rate below minimum");
 
-        // msg.value в ETH, резервы в ETH и PRMT, поэтому tokenAmount будет в PRMT
-        uint tokenAmount = (msg.value * token_reserves) / eth_reserves;
-        console.log("addLiquidity: tokenAmount (PRMT) =", tokenAmount);
-        uint senderBalance = token.balanceOf(msg.sender);
-        console.log("addLiquidity: sender balance (PRMT) =", senderBalance);
-        require(senderBalance >= tokenAmount, "Insufficient token balance");
+    uint tokenAmount = (msg.value * token_reserves) / eth_reserves;
+    console.log("addLiquidity: tokenAmount (PRMT) =", tokenAmount);
+    uint senderBalance = token.balanceOf(msg.sender);
+    console.log("addLiquidity: sender token balance (PRMT) =", senderBalance);
+    require(senderBalance >= tokenAmount, "Insufficient token balance");
 
-        console.log("addLiquidity: calling transferFrom");
-        token.transferFrom(msg.sender, address(this), tokenAmount);
+    console.log("addLiquidity: calling transferFrom");
+    token.transferFrom(msg.sender, address(this), tokenAmount);
 
-        token_reserves += tokenAmount;
-        eth_reserves += msg.value;
-        console.log("k before:", k);
-        k = token_reserves * eth_reserves;
-        console.log("k after:", k);
+    token_reserves += tokenAmount;
+    eth_reserves += msg.value;
+ 
+    console.log("k before:", k);
+    k = token_reserves * eth_reserves;
+    console.log("k after:", k);
 
-        if (lps[msg.sender] == 0) {
-            lp_providers.push(msg.sender);
-        }
-        lps[msg.sender] += msg.value; // Сохраняем в ETH
-        console.log("addLiquidity: completed successfully");
+    if (lps[msg.sender] == 0) {
+        lp_providers.push(msg.sender);
     }
+    lps[msg.sender] += msg.value;
+    console.log("addLiquidity: completed successfully");
+    console.log("Sender ETH balance at end (wei):", msg.sender.balance);
+}
 
     // Function removeLiquidity: Removes liquidity given the desired amount of ETH to remove (in ETH).
     function removeLiquidity(uint amountETH, uint max_exchange_rate, uint min_exchange_rate)
