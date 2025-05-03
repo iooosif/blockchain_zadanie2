@@ -37,8 +37,8 @@
       ]
     },
     "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/contracts/exchange.sol": {
-      "lastModificationDate": 1746130569604,
-      "contentHash": "eb7130e75be8c4a504ce5d8525e1a58a",
+      "lastModificationDate": 1746289264447,
+      "contentHash": "a3c2d1cdacb4236f65a3176b632f324c",
       "sourceName": "contracts/exchange.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -72,46 +72,6 @@
       ],
       "artifacts": [
         "TokenExchange"
-      ]
-    },
-
-    "/Users/Iosif/Desktop/stu/4sem/dmblock/kode_copy/contracts/exchange.sol": {
-      "lastModificationDate": 1746003352596,
-      "contentHash": "1d7969055a0d7d2c27776cd4bb10342f",
-      "sourceName": "contracts/exchange.sol",
-
-      "solcConfig": {
-        "version": "0.8.17",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Token"
       ]
     },
     "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/node_modules/hardhat/console.sol": {
@@ -365,6 +325,44 @@
       ],
       "artifacts": [
         "IERC20"
+      ]
+    },
+    "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/contracts/token.sol": {
+      "lastModificationDate": 1746133221773,
+      "contentHash": "6db847806e95ba41a9996f5b1de2f577",
+      "sourceName": "contracts/token.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Token"
       ]
     }
   }
