@@ -37,8 +37,8 @@
       ]
     },
     "/Users/amalahmadinurov/Desktop/Subjects_LS_2025/Block/Task2/blockchain_zadanie2/contracts/exchange.sol": {
-      "lastModificationDate": 1746289765064,
-      "contentHash": "a2dbe533a2da882c9975a1f2a8d7f4a8",
+      "lastModificationDate": 1746292035344,
+      "contentHash": "0e6d1102b101bd9ecbb42d7ebf4f0496",
       "sourceName": "contracts/exchange.sol",
       "solcConfig": {
         "version": "0.8.17",

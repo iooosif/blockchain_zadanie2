@@ -19,7 +19,7 @@ contract TokenExchange is Ownable {
     mapping(address => uint) private lps;
 
    
-    uint shares ;
+    uint total_shares ;
      
     // Needed for looping through the keys of the lps mapping
     address[] private lp_providers;         
@@ -117,14 +117,14 @@ contract TokenExchange is Ownable {
     }
    
     uint provider_share = 0;
-    if(shares == 0)
+    if(total_shares == 0)
     {
-        shares = eth_reserves;
+        total_shares = eth_reserves;
         provider_share = msg.value;
     }else
     {
-        provider_share = (msg.value*shares)/eth_reserves;
-        shares+=provider_share;
+        provider_share = (msg.value*total_shares)/eth_reserves;
+        total_shares+=provider_share;
     }
     lps[msg.sender]+= provider_share;
     console.log("addLiquidity: completed successfully");
@@ -138,7 +138,7 @@ contract TokenExchange is Ownable {
     {
         require(amountETH > 0, "Amount must be greater than 0");
         require(amountETH <= eth_reserves - 1, "Not enough ETH in reserves");
-        require(amountETH <= (lps[msg.sender]*eth_reserves)/shares, "Not enough liquidity provided by sender");
+        require(amountETH <= (lps[msg.sender]*eth_reserves)/total_shares, "Not enough liquidity provided by sender");
 
         // Проверка текущего курса обмена (PRMT за 1 ETH)
         uint current_exchange_rate = (token_reserves * 1000) / eth_reserves; // Умножаем на 1000 для точности
@@ -149,8 +149,8 @@ contract TokenExchange is Ownable {
         require(amountTokens <= token_reserves - 1, "Not enough tokens in reserves");
 
 
-        uint share_correction = (amountETH*shares)/eth_reserves;
-        shares -= share_correction;
+        uint share_correction = (amountETH*total_shares)/eth_reserves;
+        total_shares -= share_correction;
         lps[msg.sender] -= share_correction;
         // Update reserves
         token_reserves -= amountTokens;
@@ -195,7 +195,7 @@ contract TokenExchange is Ownable {
         require(current_exchange_rate <= max_exchange_rate, "Slippage too high: exchange rate above maximum");
         require(current_exchange_rate >= min_exchange_rate, "Slippage too low: exchange rate below minimum");
         
-        uint amountETH = (lps[msg.sender]*eth_reserves)/shares;
+        uint amountETH = (lps[msg.sender]*eth_reserves)/total_shares;
         uint amountTokens = (amountETH * token_reserves) / eth_reserves;
         console.log(amountETH);
         require(amountETH <= eth_reserves - 1, "Not enough ETH in reserves");
@@ -217,7 +217,7 @@ contract TokenExchange is Ownable {
             }
         }
         
-        shares -= lps[msg.sender]; 
+        total_shares -= lps[msg.sender]; 
         lps[msg.sender] = 0;
 
         // Transfer tokens and ETH back to sender
