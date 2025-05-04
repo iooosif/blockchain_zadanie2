@@ -1,40 +1,75 @@
 // =================== FIIT DEX Project =================== // 
-//                      Design Document                      //
+//           @authors: Iosif Solntsev,  Amal Akhmadinurov                       //
 // ========================================================= //  
 
-# TODO: Odstrániť tento riadok a napísať mená autorov do dokumentácie
 
 1. Vysvetlite, prečo pridávanie a odoberanie likvidity na vašej burze nezmení výmenný kurz.
 
 
-# TODO: napíšte odpoveď na otázku 1
+# The exchange rate remains unchanged when liquidity is added because the liquidity provider must
+#supply both ETH and tokens in a ratio that reflects the current exchange rate.
+#For example, if the pool contains 1000 tokens and 10 ETH (a 100:1 ratio), and a provider adds
+#1 ETH, they must also contribute 100 tokens. The pool will then contain 1100 tokens and 11 ETH,
+#maintaining the 100:1 ratio. As a result, the exchange rate is preserved.
 
 
 2. K bonusu - Vysvetlite svoju schému odmeňovania poskytovateľov likvidity a zdôvodnite rozhodnutia o dizajne, ktoré ste urobili. Ako spĺňa požiadavky na odmeny za likviditu uvedené v sekcii 7?
 
 
-# TODO: napíšte odpoveď na otázku 2
+# Initialization
+#When the first provider adds liquidity, the ‘shares‘ variable is initialized based on the total ETH in the
+#pool (existing reserves plus the newly added ETH). The provider’s ownership is stored in the ‘lp shares‘
+#mapping.
+#Subsequent Additions
+#For additional providers, shares are calculated proportionally as follows:
+#provider share = (msg.value × shares)/eth reserves
+
+#Partial Withdrawal
+#If a provider chooses to withdraw part of their liquidity, the corresponding share adjustment is calcu-
+#lated using:
+#share correction = (amountETH × shares)/eth reserves
+
+#This amount is deducted from both the provider’s share and the total share pool.
+#Full Withdrawal
+#To withdraw all liquidity, the amount of ETH and tokens sent to the user’s wallet is computed as:
+#amountETH = (user share × eth reserves)/shares
+
+#amountTokens = (amountETH × token reserves)/eth reserves
+
+#Transaction Fee
+#A transaction fee of 3% is applied to each trade and retained in the liquidity pool, benefiting all
+#liquidity providers by increasing the total pool value.
+#Compliance with Requirements
+#• The logic for rewarding liquidity providers is implemented in the methods: addLiquidity,
+#removeAllLiquidity, and removeLiquidity.
+#• Fee is set to be 3%
+#• User always retrieve the amount of ETH and tokens according to the respective share in the
+#liquidity pool
+
 
 
 3. Popíšte aspoň jednu metódu, ktorú ste použili na minimalizáciu spotreby gas pri kontrakte burzy. Prečo bola táto metóda efektívna?
 
 
-# TODO: napísať odpoveď na otázku 3
+#Technics for spending less gas
+#• Performing necessary operations only after validity checks of input data (e.g balance checks),
+#which minimizes the number of operations
+#• Lack of repeated calculations during swaps and other operatio
 
 
 4. Voliteľná spätná väzba:
 4a. Koľko času ste strávili na zadaní?
 
-# TODO: odpovedať na otázku 4(a)
+# 25
 
 4b. Aká je jedna vec, ktorá by bola užitočná, keby ste ju vedeli predtým ako ste začali pracovať na zadaní 2?
 
-# TODO: odpovdať na otázku 4(b)
+# a deeper knowledge of solidity
 
 4c. Keby ste mohli zmeniť jednu vec v tomto zadaní, čo by to bolo?
 
-# TODO: odpovedať na otázku 4(c)
+# description of the binding of the eth rate to our token,
 
 4d. Prosím pridajte nám akýkoľvek feedback alebo spätnú väzbu, ktorý máte na mysli alebo na srdci 😊.
 
-# TODO: odpovedať na otázku 4(d)
+# quite interesting assignment, very good and detailed description of the project and instructions for it
